@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: 
+  name: keduit-eng1
+  namespace: keduit
+rules:
+- apiGroups: ["","apps","rbac.authorization.k8s.io"]
+  resources: ["pods", "deployments", "services","serviceaccounts","roles", "rolebindings"]
+  verbs: ["get", "create", "update", "patch", "delete","list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: 
+  name: keduit-eng1
+  namespace: keduit
+roleRef:
+  kind: Role
+  name: keduit-eng1
+  apiGroup: rbac.authorization.k8s.io
+
+subjects:
+- kind: ServiceAccount
+  name: eng1
+  namespace: keduit
